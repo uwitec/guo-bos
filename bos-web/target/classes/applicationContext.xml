@@ -67,5 +67,5 @@
 	<!-- 注册crm客户端代理对象 -->
 	<jaxws:client id="crmClient" 
 		serviceClass="com.guo.crm.ICustomerService" 
-		address="http://192.168.0.103:8080/crm32/service/customer"/>
+		address="http://127.0.0.1:8080/crm32/service/customer"/>
 </beans>
