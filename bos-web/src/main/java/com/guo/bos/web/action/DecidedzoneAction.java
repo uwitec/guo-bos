@@ -29,6 +29,8 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
 	
 	@Autowired
 	private IDecidedzoneService decidedzoneService;
+	@Autowired
+	private ICustomerService proxy;
 	
 	
 	/**
@@ -59,6 +61,35 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
 						"pageSize","subareas","decidedzones"});
 		return NONE;
 	}
+	//查询未关联的客户端
+	public String findListNotAssociation() {
+		List<Customer> list2 = proxy.findListNotAssociation();
+		this.javaToJson(list2, new String[]{});
+		return NONE;
+	}
+		
+	/**
+	 * 远程调用crm服务,查询已经关联的客户
+	 * @return
+	 */
+	public String findListHasAssociation() {
+		String id = model.getId();
+		List<Customer> list3 = proxy.findListHasAssociation(id);
+		this.javaToJson(list3, new String[]{});
+		return NONE;
+	}
+	
+	//属性驱动，接收页面提交的多个客户id
+	private List<Integer> customerIds;
+			
+			
+	/**
+	 * 远程调用crm服务，将客户关联到定区
+	 */
+	public String assigncustomerstodecidedzone(){
+			proxy.assigncustomerstodecidedzone(model.getId(), customerIds);
+			return LIST;
+	}
 
 	public String getIds() {
 		return ids;
@@ -66,5 +97,13 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
 
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+
+	public List<Integer> getCustomerIds() {
+		return customerIds;
+	}
+
+	public void setCustomerIds(List<Integer> customerIds) {
+		this.customerIds = customerIds;
 	}
 }

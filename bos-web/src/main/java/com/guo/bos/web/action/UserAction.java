@@ -30,15 +30,11 @@ public class UserAction extends BaseAction<User> {
 	@Autowired
 	// 自动注入
 	private IUserService userService;
-	@Autowired
-	private ICustomerService proxy;
 
 	/**
 	 * 用户登录
 	 */
 	public String login() {
-		List<Customer> list3 = proxy.findAll();
-		System.out.println(list3);
 		// 从Session中获取生成的验证码
 		String validatecode = (String) ServletActionContext.getRequest()
 				.getSession().getAttribute("key");

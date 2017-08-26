@@ -3,6 +3,7 @@ package com.guo.crm;
 
 import java.util.List;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -25,6 +26,34 @@ public interface ICustomerService {
 
     /**
      * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<com.guo.crm.Customer>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findListHasAssociation", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindListHasAssociation")
+    @ResponseWrapper(localName = "findListHasAssociationResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindListHasAssociationResponse")
+    public List<Customer> findListHasAssociation(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "assigncustomerstodecidedzone", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.Assigncustomerstodecidedzone")
+    @ResponseWrapper(localName = "assigncustomerstodecidedzoneResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.AssigncustomerstodecidedzoneResponse")
+    public void assigncustomerstodecidedzone(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        List<Integer> arg1);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<com.guo.crm.Customer>
      */
@@ -33,5 +62,16 @@ public interface ICustomerService {
     @RequestWrapper(localName = "findAll", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindAll")
     @ResponseWrapper(localName = "findAllResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindAllResponse")
     public List<Customer> findAll();
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<com.guo.crm.Customer>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findListNotAssociation", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindListNotAssociation")
+    @ResponseWrapper(localName = "findListNotAssociationResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindListNotAssociationResponse")
+    public List<Customer> findListNotAssociation();
 
 }
