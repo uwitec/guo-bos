@@ -82,7 +82,6 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
 	//属性驱动，接收页面提交的多个客户id
 	private List<Integer> customerIds;
 			
-			
 	/**
 	 * 远程调用crm服务，将客户关联到定区
 	 */
