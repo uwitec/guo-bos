@@ -1,6 +1,7 @@
 package com.guo.bos.web.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import com.guo.bos.domain.Decidedzone;
 import com.guo.bos.service.IDecidedzoneService;
 import com.guo.bos.web.action.base.BaseAction;
+import com.guo.crm.Customer;
+import com.guo.crm.ICustomerService;
 
 
 /**
@@ -27,10 +30,12 @@ public class DecidedzoneAction extends BaseAction<Decidedzone>{
 	@Autowired
 	private IDecidedzoneService decidedzoneService;
 	
+	
 	/**
 	 * 添加定区
 	 */
 	public String add(){
+		
 		decidedzoneService.save(model,subareaid);
 		return LIST;
 	}

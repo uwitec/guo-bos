@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for customer complex type.
+ * <p>customer complex type的 Java 类。
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>以下模式片段指定包含在此类中的预期内容。
  * 
  * <pre>
  * &lt;complexType name="customer">
@@ -51,7 +51,7 @@ public class Customer {
     protected String telephone;
 
     /**
-     * Gets the value of the address property.
+     * 获取address属性的值。
      * 
      * @return
      *     possible object is
@@ -63,7 +63,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the address property.
+     * 设置address属性的值。
      * 
      * @param value
      *     allowed object is
@@ -75,7 +75,7 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the decidedzoneId property.
+     * 获取decidedzoneId属性的值。
      * 
      * @return
      *     possible object is
@@ -87,7 +87,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the decidedzoneId property.
+     * 设置decidedzoneId属性的值。
      * 
      * @param value
      *     allowed object is
@@ -99,7 +99,7 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the id property.
+     * 获取id属性的值。
      * 
      */
     public int getId() {
@@ -107,7 +107,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the id property.
+     * 设置id属性的值。
      * 
      */
     public void setId(int value) {
@@ -115,7 +115,7 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the name property.
+     * 获取name属性的值。
      * 
      * @return
      *     possible object is
@@ -127,7 +127,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the name property.
+     * 设置name属性的值。
      * 
      * @param value
      *     allowed object is
@@ -139,7 +139,7 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the station property.
+     * 获取station属性的值。
      * 
      * @return
      *     possible object is
@@ -151,7 +151,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the station property.
+     * 设置station属性的值。
      * 
      * @param value
      *     allowed object is
@@ -163,7 +163,7 @@ public class Customer {
     }
 
     /**
-     * Gets the value of the telephone property.
+     * 获取telephone属性的值。
      * 
      * @return
      *     possible object is
@@ -175,7 +175,7 @@ public class Customer {
     }
 
     /**
-     * Sets the value of the telephone property.
+     * 设置telephone属性的值。
      * 
      * @param value
      *     allowed object is
