@@ -24,6 +24,6 @@ public interface ISubareaService {
 
 	public List<Subarea> findListNotAssciation();
 
-	public List<Subarea> findListAssciation();
+	public List<Subarea> findListByDecidedzoneId(String decidedzoneId);
 
 }

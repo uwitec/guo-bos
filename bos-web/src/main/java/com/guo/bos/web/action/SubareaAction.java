@@ -220,15 +220,17 @@ public class SubareaAction extends BaseAction<Subarea> {
 		return NONE;
 	}
 	
-	/**
-	 * 查询所有未关联到定区的分区，返回json
-	 * @return
-	 */
-	public String listajax1() {
-		List<Subarea> list = subareaService.findListAssciation();
-		this.javaToJson(list, new String[]{"decidedzone","region"});
-		return NONE;
-	}
+	//属性驱动，接收定区id
+		private String decidedzoneId;
+		
+		/**
+		 * 根据定区id查询关联的分区
+		 */
+		public String findListByDecidedzoneId(){
+			List<Subarea> list = subareaService.findListByDecidedzoneId(getDecidedzoneId());
+			this.javaToJson(list, new String[]{"decidedzone","subareas"});
+			return NONE;
+		}
 
 	public String getIds() {
 		return ids;
@@ -244,6 +246,14 @@ public class SubareaAction extends BaseAction<Subarea> {
 
 	public void setSubareaFile(File subareaFile) {
 		this.subareaFile = subareaFile;
+	}
+
+	public String getDecidedzoneId() {
+		return decidedzoneId;
+	}
+
+	public void setDecidedzoneId(String decidedzoneId) {
+		this.decidedzoneId = decidedzoneId;
 	}
 
 }

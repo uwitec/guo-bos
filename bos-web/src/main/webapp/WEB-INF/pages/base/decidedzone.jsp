@@ -284,7 +284,7 @@
 			border : true,
 			rownumbers : true,
 			striped : true,
-			url : "json/association_customer.json",
+			url : "decidedzoneAction_findListHasAssociation.action?id="+data.id,
 			columns : [[{
 				field : 'id',
 				title : '客户编号',
