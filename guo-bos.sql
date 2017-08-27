@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
+Source Server         : guo
 Source Server Version : 50717
 Source Host           : localhost:3306
 Source Database       : bos32
@@ -10,10 +10,51 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-08-26 20:35:55
+Date: 2017-08-27 22:51:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for auth_function
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_function`;
+CREATE TABLE `auth_function` (
+  `id` varchar(32) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `page` varchar(255) DEFAULT NULL,
+  `generatemenu` varchar(255) DEFAULT NULL,
+  `zindex` int(11) DEFAULT NULL,
+  `pid` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `AK_Key_2` (`name`),
+  KEY `FK33r6np87v1p6gge7t6rpcao5h` (`pid`),
+  CONSTRAINT `FK33r6np87v1p6gge7t6rpcao5h` FOREIGN KEY (`pid`) REFERENCES `auth_function` (`id`),
+  CONSTRAINT `FK_Reference_11` FOREIGN KEY (`pid`) REFERENCES `auth_function` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of auth_function
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for auth_role
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_role`;
+CREATE TABLE `auth_role` (
+  `id` varchar(32) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `AK_Key_2` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of auth_role
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for bc_decidedzone
@@ -141,9 +182,9 @@ CREATE TABLE `bc_staff` (
 -- Records of bc_staff
 -- ----------------------------
 INSERT INTO `bc_staff` VALUES ('402880e75e05feb4015e05ff481a0000', '郭小旭', '15771800000', '0', '1', 'Google', '标准一');
-INSERT INTO `bc_staff` VALUES ('402881e45e0850bf015e08540e770000', 'xiaoxu', '15771805379', '1', '0', 'Twitter', '标准二');
-INSERT INTO `bc_staff` VALUES ('402881e45e09462a015e0946f0720000', 'guoxiaox', '15771805379', '1', '0', 'Twitter', '标准三');
-INSERT INTO `bc_staff` VALUES ('402881e85e0d1142015e0d173d1c0000', 'Xiaoxu Guowww', '15771805379', '1', '0', 'guo', 'wwww');
+INSERT INTO `bc_staff` VALUES ('402881e45e0850bf015e08540e770000', 'xiaoxu', '15771800000', '1', '0', 'Twitter', '标准二');
+INSERT INTO `bc_staff` VALUES ('402881e45e09462a015e0946f0720000', 'guoxiaox', '15771800000', '1', '0', 'Twitter', '标准三');
+INSERT INTO `bc_staff` VALUES ('402881e85e0d1142015e0d173d1c0000', 'Xiaoxu Guowww', '15771800000', '1', '0', 'guo', 'wwww');
 
 -- ----------------------------
 -- Table structure for bc_subarea
@@ -178,13 +219,127 @@ INSERT INTO `bc_subarea` VALUES ('402881e55e11ef16015e120271080001', 'xxxxxxxxxx
 INSERT INTO `bc_subarea` VALUES ('402881e55e1238bf015e123985360000', 'aa', 'QY003', '朝阳区区', '1', 'aa', '1', '北京朝阳区');
 
 -- ----------------------------
+-- Table structure for qp_noticebill
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_noticebill`;
+CREATE TABLE `qp_noticebill` (
+  `id` varchar(32) NOT NULL,
+  `staff_id` varchar(32) DEFAULT NULL,
+  `customer_id` varchar(32) DEFAULT NULL,
+  `customer_name` varchar(20) DEFAULT NULL,
+  `delegater` varchar(20) DEFAULT NULL,
+  `telephone` varchar(20) DEFAULT NULL,
+  `pickaddress` varchar(200) DEFAULT NULL,
+  `arrivecity` varchar(20) DEFAULT NULL,
+  `product` varchar(20) DEFAULT NULL,
+  `pickdate` date DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `weight` double DEFAULT NULL,
+  `volume` varchar(20) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `ordertype` varchar(20) DEFAULT NULL,
+  `user_id` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKl5j3pm969oy1qdc1318jrmbgt` (`user_id`),
+  KEY `FKhmbqr6qlg0uets978w5xshler` (`staff_id`),
+  CONSTRAINT `FK_Reference_3` FOREIGN KEY (`staff_id`) REFERENCES `bc_staff` (`id`),
+  CONSTRAINT `FK_Refernce_32` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FKhmbqr6qlg0uets978w5xshler` FOREIGN KEY (`staff_id`) REFERENCES `bc_staff` (`id`),
+  CONSTRAINT `FKl5j3pm969oy1qdc1318jrmbgt` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qp_noticebill
+-- ----------------------------
+INSERT INTO `qp_noticebill` VALUES ('402880e75e21fc70015e21fddba10000', '402881e85e0d1142015e0d173d1c0000', '8', '小李', '小李', '13788888888', '北京市昌平区建材城西路100号', '丽江市古城区', '笔记本', '2017-08-27', '1', '2', '', '无', '自动分单', null);
+INSERT INTO `qp_noticebill` VALUES ('402880e75e21fee6015e21ffeba40000', null, '1', '张三', '张三', '13811111111', '北京市西城区长安街100号', '丽江市古城区', '手机', '2017-08-27', '1', '1', '1', '无', '人工分单', null);
+
+-- ----------------------------
+-- Table structure for qp_workbill
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_workbill`;
+CREATE TABLE `qp_workbill` (
+  `id` varchar(32) NOT NULL,
+  `noticebill_id` varchar(32) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `pickstate` varchar(20) DEFAULT NULL,
+  `buildtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `attachbilltimes` int(11) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `staff_id` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKggojlcovnpimuukxcueb18apt` (`noticebill_id`),
+  KEY `FK55ckcnjyvwinnnniu5jpelg7y` (`staff_id`),
+  CONSTRAINT `FK55ckcnjyvwinnnniu5jpelg7y` FOREIGN KEY (`staff_id`) REFERENCES `bc_staff` (`id`),
+  CONSTRAINT `FK_Reference_4` FOREIGN KEY (`staff_id`) REFERENCES `bc_staff` (`id`),
+  CONSTRAINT `FK_workbill_noticebill_fk` FOREIGN KEY (`noticebill_id`) REFERENCES `qp_noticebill` (`id`),
+  CONSTRAINT `FKggojlcovnpimuukxcueb18apt` FOREIGN KEY (`noticebill_id`) REFERENCES `qp_noticebill` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qp_workbill
+-- ----------------------------
+INSERT INTO `qp_workbill` VALUES ('402880e75e21fc70015e21fdde780001', '402880e75e21fc70015e21fddba10000', '新单', '未取件', '2017-08-27 12:40:39', '0', '无', '402881e85e0d1142015e0d173d1c0000');
+
+-- ----------------------------
+-- Table structure for qp_workordermanage
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_workordermanage`;
+CREATE TABLE `qp_workordermanage` (
+  `id` varchar(32) NOT NULL,
+  `arrivecity` varchar(20) DEFAULT NULL,
+  `product` varchar(20) DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `weight` double DEFAULT NULL,
+  `floadreqr` varchar(255) DEFAULT NULL,
+  `prodtimelimit` varchar(40) DEFAULT NULL,
+  `prodtype` varchar(40) DEFAULT NULL,
+  `sendername` varchar(20) DEFAULT NULL,
+  `senderphone` varchar(20) DEFAULT NULL,
+  `senderaddr` varchar(200) DEFAULT NULL,
+  `receivername` varchar(20) DEFAULT NULL,
+  `receiverphone` varchar(20) DEFAULT NULL,
+  `receiveraddr` varchar(200) DEFAULT NULL,
+  `feeitemnum` int(11) DEFAULT NULL,
+  `actlweit` double DEFAULT NULL,
+  `vol` varchar(20) DEFAULT NULL,
+  `managerCheck` varchar(1) DEFAULT NULL,
+  `updatetime` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qp_workordermanage
+-- ----------------------------
+INSERT INTO `qp_workordermanage` VALUES ('11', '1', '1', '11', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for role_function
+-- ----------------------------
+DROP TABLE IF EXISTS `role_function`;
+CREATE TABLE `role_function` (
+  `role_id` varchar(32) NOT NULL,
+  `function_id` varchar(32) NOT NULL,
+  PRIMARY KEY (`role_id`,`function_id`),
+  KEY `FK5f8riddotqjpm9vly0b8c5nmf` (`function_id`),
+  CONSTRAINT `FK10qo908yd9evkyb40vf88og85` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`),
+  CONSTRAINT `FK5f8riddotqjpm9vly0b8c5nmf` FOREIGN KEY (`function_id`) REFERENCES `auth_function` (`id`),
+  CONSTRAINT `FK_Reference_12` FOREIGN KEY (`function_id`) REFERENCES `auth_function` (`id`),
+  CONSTRAINT `FK_Reference_13` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role_function
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` varchar(32) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
@@ -198,4 +353,22 @@ CREATE TABLE `t_user` (
 -- Records of t_user
 -- ----------------------------
 INSERT INTO `t_user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', null, null, null, null, null, null);
-INSERT INTO `t_user` VALUES ('2', '123', '123', null, null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `user_id` varchar(32) NOT NULL,
+  `role_id` varchar(32) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FKqqlqhas35obkljn18mrh6mmms` (`role_id`),
+  CONSTRAINT `FK_Reference_14` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FK_Reference_15` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`),
+  CONSTRAINT `FKeqon9sx5vssprq67dxm3s7ump` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `FKqqlqhas35obkljn18mrh6mmms` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
