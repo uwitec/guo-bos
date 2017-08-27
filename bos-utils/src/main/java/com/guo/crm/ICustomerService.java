@@ -19,7 +19,6 @@ import javax.xml.ws.ResponseWrapper;
  */
 @WebService(name = "ICustomerService", targetNamespace = "http://service.crm.guo.com/")
 @XmlSeeAlso({
-    //ObjectFactory.class
 })
 public interface ICustomerService {
 
@@ -51,6 +50,34 @@ public interface ICustomerService {
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         List<Integer> arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns com.guo.crm.Customer
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findCustomerByTelephone", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindCustomerByTelephone")
+    @ResponseWrapper(localName = "findCustomerByTelephoneResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindCustomerByTelephoneResponse")
+    public Customer findCustomerByTelephone(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "findDecidedzoneIdByAddress", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindDecidedzoneIdByAddress")
+    @ResponseWrapper(localName = "findDecidedzoneIdByAddressResponse", targetNamespace = "http://service.crm.guo.com/", className = "com.guo.crm.FindDecidedzoneIdByAddressResponse")
+    public String findDecidedzoneIdByAddress(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 

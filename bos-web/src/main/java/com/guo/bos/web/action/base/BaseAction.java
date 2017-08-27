@@ -46,7 +46,7 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		//指定哪些属性不需要转json
 		jsonConfig.setExcludes(excludes); //FUCK
 		//这里需要把jsonConfig对象传过去
-		String json = JSONObject.fromObject(pageBean,jsonConfig).toString();
+		String json = JSONObject.fromObject(o,jsonConfig).toString();
 		
 		//设置字符编码
 		ServletActionContext.getResponse().setContentType("text/json;charset=UTF-8");
