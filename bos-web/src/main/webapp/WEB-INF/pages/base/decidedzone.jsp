@@ -227,7 +227,8 @@
 				field : 'id',
 				title : '分拣编号',
 				width : 120,
-				align : 'center'
+				align : 'center',
+				checkbox:true
 			},{
 				field : 'province',
 				title : '省',
