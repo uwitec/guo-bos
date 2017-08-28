@@ -40,8 +40,8 @@
 				}           
 			],
 			url : 'functionAction_pageQuery.action',
-			pagination : true,  /* 显示分页条 */
-			fit : true,			/* 充满整个页面 */
+			pagination : true,
+			fit:true,
 			columns : [[
 			  {
 				  field : 'id',
@@ -62,6 +62,7 @@
 			  {
 				  field : 'generatemenu',
 				  title : '是否生成菜单',
+				  width : 150,
 				  formatter : function(data,row, index){
 						if(data=="1"){
 							return "是";

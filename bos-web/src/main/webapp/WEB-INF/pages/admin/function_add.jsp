@@ -46,7 +46,7 @@
 	</div>
 </div>
 <div data-options="region:'center'">
-	<form id="functionForm" action="functionAction_add.action" method="post">
+	<form id="functionForm" method="post" action="functionAction_add.action">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">功能权限信息</td>
@@ -83,9 +83,14 @@
 					<tr>
 						<td>父功能点</td>
 						<td>
+							<!-- 
 							<input name="parentFunction.id" class="easyui-combobox" 
-							data-options="valueField:'id',textField:'name',
+								data-options="valueField:'id',textField:'name',
 								url:'functionAction_listajax.action'"/>
+							 -->
+							 <input name="parentFunction.id" class="easyui-combotree" 
+							 	data-options="url:'functionAction_listajax.action'" 
+							 	style="width:170px;">
 						</td>
 					</tr>
 					<tr>

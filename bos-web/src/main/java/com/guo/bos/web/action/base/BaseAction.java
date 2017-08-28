@@ -44,16 +44,12 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	public void javaToJson(Object o,String[] excludes) {
 		JsonConfig jsonConfig = new JsonConfig();
 		//指定哪些属性不需要转json
-		jsonConfig.setExcludes(excludes); //FUCK
-		//这里需要把jsonConfig对象传过去
+		jsonConfig.setExcludes(excludes);
 		String json = JSONObject.fromObject(o,jsonConfig).toString();
-		
-		//设置字符编码
-		ServletActionContext.getResponse().setContentType("text/json;charset=UTF-8");
+		ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
 		try {
 			ServletActionContext.getResponse().getWriter().print(json);
 		} catch (IOException e) {
-			//这里可不能抛出去啊，！！！哈哈哈哈！！！
 			e.printStackTrace();
 		}
 	}

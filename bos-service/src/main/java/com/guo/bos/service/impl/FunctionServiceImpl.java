@@ -14,10 +14,11 @@ import com.guo.bos.utils.PageBean;
 @Service
 @Transactional
 public class FunctionServiceImpl implements IFunctionService {
+	
 	@Autowired
 	private IFunctionDao dao;
 	public List<Function> findAll() {
-		return dao.findAll();
+	return dao.findAll();
 	}
 	
 	//添加权限
