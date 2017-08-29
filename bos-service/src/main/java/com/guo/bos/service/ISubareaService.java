@@ -26,4 +26,6 @@ public interface ISubareaService {
 
 	public List<Subarea> findListByDecidedzoneId(String decidedzoneId);
 
+	public List<Object> findSubareasGroupByProvince();
+
 }

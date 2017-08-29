@@ -231,6 +231,14 @@ public class SubareaAction extends BaseAction<Subarea> {
 			this.javaToJson(list, new String[]{"decidedzone","subareas"});
 			return NONE;
 		}
+		/**S
+		 * 查询区域分区分布图数据
+		 */
+		public String findSubareasGroupByProvince(){
+			List<Object> list = subareaService.findSubareasGroupByProvince();
+			this.javaToJson(list, new String[]{});
+			return NONE;
+		}
 
 	public String getIds() {
 		return ids;

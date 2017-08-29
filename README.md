@@ -67,8 +67,10 @@
 20、项目中引入Quartz，完成定时发送邮件。出了点问题，没测试通过！554 DT:SPM 发送的邮件内容包含了未被许可的信息，或被系统识别为垃圾邮件。
 
 
-![](http://i.imgur.com/JY61RyC.png)
+21、基于Highcharts展示区域分区分布图。
 
+  项目演示图：
+![](http://i.imgur.com/gKPj9yy.gif)
 
-
-
+![](http://i.imgur.com/AZGIM8i.gif)
+![](http://i.imgur.com/28esZDN.gif)

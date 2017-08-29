@@ -29,6 +29,8 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery.ocupload-1.1.2.js">
 </script>
+<script src="${pageContext.request.contextPath }/js/highcharts/highcharts.js"></script>
+<script src="${pageContext.request.contextPath }/js/highcharts/modules/exporting.js"></script>
 <script type="text/javascript">
 	function doAdd(){
 		$('#addSubareaWindow').window("open");
@@ -85,6 +87,22 @@
 		window.location.href = "subareaAction_exportXls.action";
 	}
 	
+	function doShowHighcharts() {
+		$("#showSubareaWindow").window("open");
+		//页面加载完成后，动态创建图表
+		$.post("subareaAction_findSubareasGroupByProvince.action",function(data){
+			$("#test").highcharts({
+				title: {
+		            text: '区域分区分布图'
+		        },
+		        series: [{
+		            type: 'pie',
+		            name: '区域分区分布图',
+		            data: data
+		        }]
+			});
+		});
+	}
 	//工具栏
 	var toolbar = [ {
 		id : 'button-search',	
@@ -107,11 +125,23 @@
 		iconCls : 'icon-cancel',
 		handler : doDelete
 	},{
+		id : 'button-import',
+		text : '导入',
+		iconCls : 'icon-redo',
+		handler : doImport
+	},{
 		id : 'button-export',
 		text : '导出',
 		iconCls : 'icon-undo',
 		handler : doExport
-	}];
+	},
+	{
+		id : 'button-showHighcharts',
+		text : '显示区域分区分布图',
+		iconCls : 'icon-search',
+		handler : doShowHighcharts
+	}
+	];
 	// 定义列
 	var columns = [ [ {
 		field : 'id',
@@ -218,6 +248,15 @@
 	        shadow: true,
 	        closed: true,
 	        height: 400,
+	        resizable:false
+	    });
+	    
+	    $('#showSubareaWindow').window({
+	        width: 800,
+	        modal: true,
+	        shadow: true,
+	        closed: true,
+	        height: 700,
 	        resizable:false
 	    });
 	   
@@ -432,6 +471,13 @@
 					</tr>
 				</table>
 			</form>
+		</div>
+	</div>
+	
+	<!-- 用于展示图表 -->
+	<div class="easyui-window" title="区域分区分布图" id="showSubareaWindow" 
+		collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
+		<div id="test"  split="false" border="false" >
 		</div>
 	</div>
 </body>
