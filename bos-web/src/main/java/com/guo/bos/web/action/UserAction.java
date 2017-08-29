@@ -43,28 +43,26 @@ public class UserAction extends BaseAction<User> {
 		// 从Session中获取生成的验证码
 		String validatecode = (String) ServletActionContext.getRequest()
 				.getSession().getAttribute("key");
-		// 校验验证码是否输入正确
-		if (StringUtils.isNotBlank(checkcode) && checkcode.equals(validatecode)) {
-			//使用shiro框架提供的方式进行认证
-			Subject subject = SecurityUtils.getSubject(); //获取当前用户对象
-			AuthenticationToken token = new UsernamePasswordToken(model.getUsername(),MD5Utils.md5(model.getPassword()));
-			try{
-				subject.login(token);
-			}catch(Exception e){
-				e.printStackTrace();
-				this.addActionError("用户名或者密码输入错误！");
-				return LOGIN;
+		//校验验证码是否输入正确
+				if(StringUtils.isNotBlank(checkcode) && checkcode.equals(validatecode)){
+					//使用shiro框架提供的方式进行认证操作
+					Subject subject = SecurityUtils.getSubject();//获得当前用户对象,状态为“未认证”
+					AuthenticationToken token = new UsernamePasswordToken(model.getUsername(),MD5Utils.md5(model.getPassword()));//创建用户名密码令牌对象
+					try{
+						subject.login(token);
+					}catch(Exception e){
+						e.printStackTrace();
+						return LOGIN;
+					}
+					User user = (User) subject.getPrincipal();
+					ServletActionContext.getRequest().getSession().setAttribute("loginUser", user);
+					return HOME;
+				}else{
+					//输入的验证码错误,设置提示信息，跳转到登录页面
+					this.addActionError("输入的验证码错误！");
+					return LOGIN;
+				}
 			}
-			User user = (User) subject.getPrincipal();
-			ServletActionContext.getRequest().getSession().setAttribute("loginUser", user);
-			return HOME;
-		} else {
-			// 登录失败，,设置提示信息，跳转到登录页面
-			// 输入的验证码错误,设置提示信息，跳转到登录页面
-			this.addActionError("输入的验证码错误");
-			return LOGIN;
-		}
-	}
 	
 	/**
 	 * 用户登录

@@ -1,5 +1,7 @@
 package com.guo.bos.realm;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -10,15 +12,21 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.guo.bos.dao.IFunctionDao;
 import com.guo.bos.dao.IUserDao;
+import com.guo.bos.domain.Function;
 import com.guo.bos.domain.User;
+import com.guo.bos.service.IFunctionService;
 
 
 public class BOSRealm extends AuthorizingRealm{
 	@Autowired
 	private IUserDao userDao;
+	@Autowired
+	private IFunctionDao dao;
 	
 	//认证方法
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -43,10 +51,21 @@ public class BOSRealm extends AuthorizingRealm{
 		//为用户授权
 		info.addStringPermission("staff-list");
 		
-		//TODO 后期需要修改为根据当前登录用户查询数据库，获取实际对应的权限
-		User user1 = (User) SecurityUtils.getSubject().getPrincipal();
-		User user2 = (User) principals.getPrimaryPrincipal();
-		System.out.println(user1 == user2);
+		//获取当前登录用户
+		User user = (User) SecurityUtils.getSubject().getPrincipal();
+		//User user2 = (User) principals.getPrimaryPrincipal();
+		//System.out.println(user1 == user2);
+		//根据当前用户查询对应的角色，获取实际的权限
+		List<Function> list = null;
+		if(user.getUsername().equals("admin")){
+			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Function.class);
+			list = dao.findByCriteria(detachedCriteria );
+		}else {
+			list = dao.findFunctionListByUserId(user.getId());
+		}
+		for (Function function : list) {
+			info.addStringPermission(function.getId());
+		}
 		return info;
 	}
 }

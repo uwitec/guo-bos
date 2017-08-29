@@ -27,6 +27,16 @@ public class Function implements java.io.Serializable {
 	public Function(String functionId) {
 		this.id = functionId;
 	}
+	public String getText(){
+		return name;
+	}
+	
+	public String getpId(){
+		if(parentFunction == null){
+			return "0";
+		}
+		return parentFunction.getId();
+	}
 	
 	public String getId() {
 		return id;

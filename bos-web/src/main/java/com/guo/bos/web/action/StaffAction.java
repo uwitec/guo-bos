@@ -82,7 +82,7 @@ public class StaffAction extends BaseAction<Staff> {
 	/**
 	 * 取派员批量删除
 	 */
-	//@RequiresPermissions("staff-delete")  //执行这个方法，需要当前用户具有这个权限
+	@RequiresPermissions("staff-delete")  //执行这个方法，需要当前用户具有这个权限
 	public String deleteBatch() {
 		staffService.deleteBatch(ids);
 		return LIST;
