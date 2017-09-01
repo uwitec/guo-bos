@@ -1,6 +1,5 @@
 /*
 Navicat MySQL Data Transfer
-
 Source Server         : guo
 Source Server Version : 50717
 Source Host           : localhost:3306
